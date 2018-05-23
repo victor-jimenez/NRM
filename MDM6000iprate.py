@@ -8,6 +8,7 @@ import time
 import datetime
 import mysql.connector
 import threading
+import operationalSCPCconfig as cfg
 
 class newtecModem(object):
 
@@ -30,7 +31,7 @@ class newtecModem(object):
 
     def loadEfficiencyTable(self):
         csvReader = csv.reader(open(
-            'C:\\Users\Victor_Jimenez\PycharmProjects\The Python Megacourse\Work Projects\SCPC modems\efficiency_table.csv'))
+            './efficiency_table.csv'))
         efficiencyTable = {}
         for row in csvReader:
             key = row[1]
@@ -124,10 +125,10 @@ class aThread(threading.Thread):
 
 if __name__ == '__main__':
 
-    community = 'icghol'
-    mysqlIp = "10.214.12.35"
-    mysqlUser = "netbot"
-    mysqlPass = "mtn33025!"
+    community = cfg.scpc['community']
+    mysqlIp = cfg.mysql['host']
+    mysqlUser = cfg.mysql['user']
+    mysqlPass = cfg.mysql['password']
 
     DB = netbotDB(mysqlIp, mysqlUser, mysqlPass)
     links = DB.getModemDetails()
